@@ -1,36 +1,36 @@
 import React, { Component } from "react"
-import { Button } from "reactstrap"
 
 class InputTodo extends Component {
 	state = {
 		inputValue: ""
 	}
 
-	onChange = event => {
+	changeInputValue = event => {
 		const value = event.target.value
 		this.setState({
 			inputValue: value
 		})
 	}
 
-	onSubmit = () => {
-		alert(this.state.inputValue)
+	submitInputValue = () => {
+		this.props.onSubmit(this.state.inputValue)
+		this.cleanInputValue()
+	}
+
+	cleanInputValue() {
+		this.setState({ inputValue: "" })
 	}
 
 	render() {
-		console.log("state inputTodo : ", this.state)
-
 		return (
 			<div>
-				<Card />
-
 				<input
 					type="text"
 					placeholder="what i want todo.."
 					value={this.state.inputValue}
-					onChange={this.onChange}
+					onChange={this.changeInputValue}
 				/>
-				<button onClick={this.onSubmit}>Submit</button>
+				<button onClick={this.submitInputValue}>Submit</button>
 			</div>
 		)
 	}

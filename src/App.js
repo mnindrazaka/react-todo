@@ -1,17 +1,29 @@
 import React, { Component } from "react"
-import logo from "./logo.svg"
 import "./App.css"
-import "bootstrap/dist/css/bootstrap.min.css"
 
 import Header from "./components/Header"
 import InputTodo from "./components/InputTodo"
+import TodoList from "./components/TodoList"
 
 class App extends Component {
+	state = {
+		todos: ["ngoding", "ngaji", "merenung"]
+	}
+
+	addTodo = todo => {
+		const todos = this.state.todos
+		todos.push(todo)
+		this.setState({
+			todos: todos
+		})
+	}
+
 	render() {
 		return (
 			<div style={styles.container}>
 				<Header title={"Todo List"} />
-				<InputTodo />
+				<InputTodo onSubmit={this.addTodo} />
+				<TodoList todos={this.state.todos} />
 			</div>
 		)
 	}
