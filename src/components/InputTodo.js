@@ -1,8 +1,9 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
+import Context from '../context'
 
 class InputTodo extends Component {
 	state = {
-		inputValue: ""
+		inputValue: ''
 	}
 
 	changeInputValue = event => {
@@ -12,26 +13,31 @@ class InputTodo extends Component {
 		})
 	}
 
-	submitInputValue = () => {
-		this.props.onSubmit(this.state.inputValue)
-		this.cleanInputValue()
-	}
-
 	cleanInputValue() {
-		this.setState({ inputValue: "" })
+		this.setState({ inputValue: '' })
 	}
 
 	render() {
 		return (
-			<div>
-				<input
-					type="text"
-					placeholder="what i want todo.."
-					value={this.state.inputValue}
-					onChange={this.changeInputValue}
-				/>
-				<button onClick={this.submitInputValue}>Submit</button>
-			</div>
+			<Context.Consumer>
+				{({ addTodo }) => {
+					const submitInputValue = () => {
+						addTodo(this.state.inputValue)
+						this.cleanInputValue()
+					}
+					return (
+						<div>
+							<input
+								type="text"
+								placeholder="what i want todo.."
+								value={this.state.inputValue}
+								onChange={this.changeInputValue}
+							/>
+							<button onClick={submitInputValue}>Submit</button>
+						</div>
+					)
+				}}
+			</Context.Consumer>
 		)
 	}
 }

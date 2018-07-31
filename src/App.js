@@ -1,13 +1,14 @@
-import React, { Component } from "react"
-import "./App.css"
+import React, { Component } from 'react'
+import './App.css'
+import Context from './context'
 
-import Header from "./components/Header"
-import InputTodo from "./components/InputTodo"
-import TodoList from "./components/TodoList"
+import Header from './components/Header'
+import InputTodo from './components/InputTodo'
+import TodoList from './components/TodoList'
 
 class App extends Component {
 	state = {
-		todos: ["ngoding", "ngaji", "merenung"]
+		todos: ['ngoding', 'ngaji', 'merenung']
 	}
 
 	addTodo = todo => {
@@ -20,18 +21,24 @@ class App extends Component {
 
 	render() {
 		return (
-			<div style={styles.container}>
-				<Header title={"Todo List"} />
-				<InputTodo onSubmit={this.addTodo} />
-				<TodoList todos={this.state.todos} />
-			</div>
+			<Context.Provider
+				value={{
+					state: this.state,
+					addTodo: this.addTodo
+				}}>
+				<div style={styles.container}>
+					<Header title={'Todo List'} />
+					<InputTodo />
+					<TodoList />
+				</div>
+			</Context.Provider>
 		)
 	}
 }
 
 const styles = {
 	container: {
-		textAlign: "center"
+		textAlign: 'center'
 	}
 }
 
